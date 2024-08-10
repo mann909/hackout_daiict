@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { z } from 'zod';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from "axios"
 
 const signupSchema = z.object({
   name: z.string().min(1, { message: 'Name must not be empty' }),
@@ -25,6 +26,7 @@ const Signup = () => {
 
   const [errors, setErrors] = useState({});
   const [otpSent, setOtpSent] = useState(false);
+  const navigate = useNavigate()
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -46,7 +48,23 @@ const Signup = () => {
     } else {
       setErrors({});
       console.log(validation.data);
+      console.log(1111)
+      sendData(validation.data)
       // Handle signup logic here
+    }
+  };
+
+  const sendData = async (data) => {
+    try {
+      const response = await axios.post("http://localhost:4000/signup", data);
+      if (response.status === 200) {
+        alert("Signup Successful");
+        navigate("/login")
+      } else {
+        console.log("Something went wrong !!");
+      }
+    } catch (err) {
+      console.log("Error details:", err.response ? err.response.data : err.message);
     }
   };
 

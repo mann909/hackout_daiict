@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { z } from 'zod';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const loginSchema = z.object({
   identifier: z
@@ -23,6 +24,7 @@ const Login = () => {
   });
 
   const [errors, setErrors] = useState({});
+  const navigate = useNavigate()
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -39,7 +41,22 @@ const Login = () => {
     } else {
       setErrors({});
       console.log(validation.data);
+      sendData(validation.data)
       // Handle login logic here
+    }
+  };
+
+  const sendData = async (data) => {
+    try {
+      const response = await axios.post("http://localhost:4000/signup", data);
+      if (response.status === 200) {
+        alert("Login Successful");
+        navigate("/")
+      } else {
+        console.log("Something went wrong !!");
+      }
+    } catch (err) {
+      console.log("Error details:", err.response ? err.response.data : err.message);
     }
   };
 
