@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { z } from 'zod';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { AppContext } from '../context/AppContext';
 
 const loginSchema = z.object({
   identifier: z
@@ -24,6 +25,7 @@ const Login = () => {
   });
 
   const [errors, setErrors] = useState({});
+  const value = useContext(AppContext)
   const navigate = useNavigate()
 
   const handleInputChange = (e) => {
@@ -48,10 +50,18 @@ const Login = () => {
 
   const sendData = async (data) => {
     try {
-      const response = await axios.post("http://localhost:4000/signup", data);
+      const response = await axios.post("http://localhost:4000/login", data);
       if (response.status === 200) {
-        alert("Login Successful");
-        navigate("/")
+        value.setIsLoggedIn(true)
+        console.log(response.data.data)
+        value.setUser(response.data.data)
+        if (response.data.data.type==='Customer'){
+          navigate('/user')
+        }else if ( response.data.data.type==='Farmer'){
+          navigate('/farmer')
+        }else if (response.data.data.type==='Agent'){
+          navigate('/agent')
+        }
       } else {
         console.log("Something went wrong !!");
       }

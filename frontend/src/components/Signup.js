@@ -11,7 +11,7 @@ const signupSchema = z.object({
     .regex(/^\d{10}$/, { message: 'Contact number must contain only 10 digits' }),
   password: z.string().min(8, { message: 'Password must be at least 8 characters long' }),
   otp: z.string().optional(),
-  userType: z.enum(['Farmer', 'Land broker', 'Customer'],{message:"Please select 1 option"}),
+  userType: z.enum(['Farmer', 'Agent', 'Customer'],{message:"Please select 1 option"}),
 });
 
 const Signup = () => {
@@ -164,7 +164,7 @@ const Signup = () => {
                 className="form-radio text-blue-500"
                 
               />
-              <span className="ml-2">Land broker</span>
+              <span className="ml-2">Agent</span>
             </label>
             <label className="flex items-center">
               <input

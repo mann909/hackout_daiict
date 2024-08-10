@@ -1,15 +1,17 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { AppContext } from '../context/AppContext';
 
 const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false); // Replace with actual login state
   const location = useLocation();
+  const value = useContext(AppContext)
   const nav = useNavigate()
 
   const handleAuthAction = () => {
-    if (isLoggedIn) {
+    if (value.isLoggedIn) {
       // Handle sign-out logic
-      setIsLoggedIn(false);
+      value.setIsLoggedIn(false);
     } else {
         nav('/login')
       // Redirect to login page
@@ -32,7 +34,7 @@ const Header = () => {
       <div className="container mx-auto flex justify-between px-8 items-center">
         {/* Logo */}
         <div className="text-5xl font-bold">
-          <Link to="/">FarmEasy</Link>
+          <Link to="/">AgriBiz Connect</Link>
         </div>
 
         {/* Navigation Links */}
@@ -59,7 +61,7 @@ const Header = () => {
           onClick={handleAuthAction}
           className="bg-white text-green-500 font-semibold px-4 py-2 rounded-lg hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-green-400"
         >
-          {isLoggedIn ? 'Sign Out' : 'Login'}
+          {value.isLoggedIn ? 'Sign Out' : 'Login'}
         </button>
       </div>
     </header>

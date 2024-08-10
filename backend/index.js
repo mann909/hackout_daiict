@@ -38,6 +38,7 @@ app.post("/signup", async (req, res) => {
                     'INSERT INTO user_info(name,email,phone,type,password) values ($1,$2,$3,$4,$5)',
                     [req.body.name, req.body.email, req.body.contactNumber, req.body.userType, hash]
                 );
+                console.log("VALUE WAS INSERTED INTO THE DB")
                 res.status(200).send({ msg: "OK" });
             } catch (err) {
                 if (err.code === "23505") {
@@ -53,14 +54,14 @@ app.post("/signup", async (req, res) => {
 
 app.post("/login", async (req, res) => {
     try {
-        const data = await db.query('SELECT * FROM user_info WHERE email = $1 OR phone = $1', [req.body.username]);
+        const data = await db.query('SELECT * FROM user_info WHERE email = $1 OR phone = $1', [req.body.identifier]);
         if (data.rows.length !== 0) {
             bcrypt.compare(req.body.password, data.rows[0].password, (err, valid) => {
                 if (err) {
                     res.status(400).send({ msg: "Error checking password" });
                 } else {
                     if (valid) {
-                        res.status(200).send({ msg: "OK" });
+                        res.status(200).send({ msg: "OK",data:data.rows[0] });
                     } else {
                         res.status(400).send({ msg: "Wrong password" });
                     }
