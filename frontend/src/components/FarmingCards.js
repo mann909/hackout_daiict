@@ -28,7 +28,7 @@ const FarmingCards = () => {
         </div>
 
         {/* Card 3 */}
-        <div onClick={()=>nav('/agentinfo')} className="bg-white rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-2 transition-all duration-300 ease-in-out p-6 text-center cursor-pointer">
+        <div onClick={()=>nav('/agent')} className="bg-white rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-2 transition-all duration-300 ease-in-out p-6 text-center cursor-pointer">
           <h2 className="text-xl font-bold text-green-700 mb-4">Contact Nearby Agents</h2>
           <FontAwesomeIcon icon={faPhoneAlt} className="text-green-600 text-3xl mb-4" />
           <p className="text-gray-600">

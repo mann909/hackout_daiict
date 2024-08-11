@@ -9,6 +9,8 @@ import User from './components/User';
 import FieldInfo from './components/FieldInfo';
 import { useContext } from 'react';
 import { AppContext } from './context/AppContext';
+import Agent from './components/Agent';
+import Farmer from './components/Farmer';
 
 function App() {
 
@@ -25,6 +27,14 @@ function App() {
           <Route path='farmerprofiles' element={<FarmerProfiles/>}/>
           <Route path='fieldinfo' element={<FieldInfo/>}/>
         </>)}
+        {
+          value.user.type === 'Agent' && (<>
+          <Route path='agent' element={<Agent/>}/></>)
+        }
+        {
+          value.user.type === 'Farmer' && (<>
+          <Route path='farmer' element={<Farmer/>}/></>)
+        }
       </Route>
       {!value.isLoggedIn && <Route path='/login' element={<Login/>}/>}
       {!value.isLoggedIn && <Route path='/signup' element={<Signup/>}/>}

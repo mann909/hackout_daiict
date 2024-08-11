@@ -2,7 +2,7 @@ import React from 'react';
 
 const FarmerCard = ({ farmer }) => {
   return (
-    <div className="max-w-sm bg-white shadow-lg rounded-lg overflow-hidden my-4 mx-auto hover:shadow-2xl transition-shadow duration-300">
+    <div className="max-w-sm bg-white shadow-lg rounded-lg overflow-hidden my-4 mx-auto hover:shadow-2xl transition-shadow duration-300 bg-green-400">
       <div className="px-6 py-4">
         <h2 className="font-bold text-xl mb-2">{farmer.name}</h2>
         <p className="text-gray-700 text-base">

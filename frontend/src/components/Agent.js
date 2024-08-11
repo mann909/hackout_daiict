@@ -1,7 +1,7 @@
 import React from 'react';
 import AgentProfile from './AgentProfile';
 import AgentDashboard from './AgentDashboard';
-import Footer from './components/Footer';
+import Footer from './Footer';
 
 function Agent() {
   return (

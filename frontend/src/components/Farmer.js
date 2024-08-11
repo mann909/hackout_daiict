@@ -1,6 +1,6 @@
 import React from 'react'
 import FarmerProfile from './FarmerProfile'
-import Footer from './components/Footer'
+import Footer from './Footer'
 
 function Farmer() {
   return (

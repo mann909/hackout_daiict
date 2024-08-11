@@ -12,6 +12,7 @@ const Header = () => {
     if (value.isLoggedIn) {
       // Handle sign-out logic
       value.setIsLoggedIn(false);
+      nav('/')
     } else {
         nav('/login')
       // Redirect to login page

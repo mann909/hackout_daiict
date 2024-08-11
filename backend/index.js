@@ -26,6 +26,7 @@ app.get("/", (req, res) => {
 });
 
 app.post("/signup", async (req, res) => {
+    var type = req.body.userType
     if (!req.body.password) {
         return res.status(400).send({ msg: "Password is required" });
     }
@@ -36,11 +37,13 @@ app.post("/signup", async (req, res) => {
             try {
                 await db.query(
                     'INSERT INTO user_info(name,email,phone,type,password) values ($1,$2,$3,$4,$5)',
-                    [req.body.name, req.body.email, req.body.contactNumber, req.body.userType, hash]
+                    [req.body.name, req.body.email, req.body.contactNumber, type, hash]
                 );
-                console.log("VALUE WAS INSERTED INTO THE DB")
+                await db.query('INSERT INTO '+type+'(name,email,phone) values ($1,$2,$3)',
+                                        [req.body.name, req.body.email, req.body.contactNumber]);
                 res.status(200).send({ msg: "OK" });
-            } catch (err) {
+                }
+                 catch (err) {
                 if (err.code === "23505") {
                     const fail = err.detail.split(" ")[1].split("=")[0];
                     res.status(400).send({ msg: `The ${fail.substring(1, fail.length - 1)} already exists` });
@@ -74,6 +77,16 @@ app.post("/login", async (req, res) => {
         res.status(400).send("Error occurred in authentication");
     }
 });
+
+app.post('/setprofile',async (req,res)=>{
+    try {
+        const data = await db.query('')
+        res.status(200).json({msg:"OK"})
+    }
+    catch(err){
+        res.status(400).json({msg:"Error"})
+    }
+})
 
 app.listen(4000, () => {
     console.log('Server is running on port 4000');

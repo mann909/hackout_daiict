@@ -125,23 +125,6 @@ const Signup = () => {
           )}
         </div>
 
-        <div className="mb-6 flex">
-          <button
-            type="button"
-            onClick={handleGetOtp}
-            className="mr-2 px-4 py-2 bg-blue-500 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-          >
-            GET OTP
-          </button>
-          <input
-            name="otp"
-            value={formData.otp}
-            onChange={handleInputChange}
-            placeholder="Enter OTP"
-            className="flex-grow px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-          />
-        </div>
-
         <div className="mb-6">
           <label className="block mb-2 text-gray-600">Sign Up as:</label>
           <div className="flex justify-around">
@@ -159,7 +142,7 @@ const Signup = () => {
               <input
                 name="userType"
                 type="radio"
-                value="Land broker"
+                value="Agent"
                 onChange={handleInputChange}
                 className="form-radio text-blue-500"
                 
